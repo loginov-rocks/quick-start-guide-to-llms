@@ -1,6 +1,9 @@
 {
   "scripts": {
-    "start": "tsx --env-file=.env src/index.ts",
+    "convert-datasets:test": "duckdb -c \"COPY (SELECT * FROM 'datasets/test.parquet') TO 'datasets/test.jsonl' (FORMAT JSON)\"",
+    "convert-datasets:train": "duckdb -c \"COPY (SELECT * FROM 'datasets/train.parquet') TO 'datasets/train.jsonl' (FORMAT JSON)\"",
+    "download-datasets": "tsx --env-file=.env src/downloadDatasets.ts",
+    "main": "tsx --env-file=.env src/main.ts",
     "typecheck": "tsc"
   },
   "dependencies": {
@@ -8,6 +11,8 @@
     "openai": "^4.98.0"
   },
   "devDependencies": {
+    "@huggingface/hub": "^2.0.2",
+    "@duckdb/duckdb-wasm": "^1.29.1-dev132.0",
     "@types/node": "^22.15.17",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
